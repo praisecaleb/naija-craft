@@ -4,9 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>🇳🇬 NaijaCraft Hub</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
+    <script src="/socket.io/socket.io.js"></script>
     <script src="app.js" defer></script>
-    </style>
+  </head>
   <body>
     <!-- ===== AUTH CONTAINER ===== -->
     <div id="authContainer" class="auth-wrapper">
@@ -24,12 +25,16 @@
           </select>
           <input type="text" id="authState" placeholder="Your Nigerian State" />
           <button id="authSubmitBtn">Sign Up</button>
-          <div class="switch" id="authSwitch">Already have an account? Login</div>
+          <div class="switch" id="authSwitch">
+            Already have an account? Login
+          </div>
         </div>
-        <div id="authError" style="color:#e57373; margin-top:12px; text-align:center;"></div>
+        <div
+          id="authError"
+          style="color: #e57373; margin-top: 12px; text-align: center"
+        ></div>
       </div>
     </div>
-
 
     <!-- ===== MAIN APP ===== -->
     <div id="appContainer" class="app-container" style="display: none">
