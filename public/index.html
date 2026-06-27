@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🇳🇬 NaijaCraft Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+    </style>
+  <body>
+    <!-- ===== AUTH CONTAINER ===== -->
+    <div id="authContainer" class="auth-wrapper">
+      <div class="auth-card">
+        <h2>🇳🇬 NaijaCraft</h2>
+        <div id="authForm">
+          <input type="text" id="authUsername" placeholder="Username" />
+          <input type="email" id="authEmail" placeholder="Email" />
+          <input type="password" id="authPassword" placeholder="Password" />
+          <input type="text" id="authIGN" placeholder="Minecraft IGN" />
+          <select id="authEdition">
+            <option value="Java">Java Edition</option>
+            <option value="Bedrock">Bedrock Edition</option>
+            <option value="PE">Pocket Edition (PE)</option>
+          </select>
+          <input type="text" id="authState" placeholder="Your Nigerian State" />
+          <button id="authSubmitBtn">Sign Up</button>
+          <div class="switch" id="authSwitch">Already have an account? Login</div>
+        </div>
+        <div id="authError" style="color:#e57373; margin-top:12px; text-align:center;"></div>
+      </div>
+    </div>
+
+
+    <!-- ===== MAIN APP ===== -->
+    <div id="appContainer" class="app-container" style="display: none">
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <div class="logo">
+          ⛏️ Naija<span>Craft</span><small>Nigerian Hub</small>
+        </div>
+        <button class="nav-btn active" data-view="dashboard">
+          📊 Dashboard
+        </button>
+        <button class="nav-btn" data-view="online">
+          🟢 Who's Online <span class="badge" id="onlineCount">0</span>
+        </button>
+        <button class="nav-btn" data-view="friends">👥 Friends</button>
+        <button class="nav-btn" data-view="chat">💬 Chat</button>
+        <button class="nav-btn" data-view="profile">👤 Profile</button>
+        <div class="sidebar-footer">
+          <button
+            id="logoutBtn"
+            style="
+              background: transparent;
+              border: 1px solid #4a2a2a;
+              color: #ccc;
+              padding: 6px 16px;
+              border-radius: 20px;
+              cursor: pointer;
+            "
+          >
+            Logout
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Views -->
+      <div class="main-content">
+        <!-- DASHBOARD -->
+        <div id="view-dashboard" class="view active">
+          <h2 style="color: #4caf50">
+            Welcome, <span id="dashUsername">User</span> 👋
+          </h2>
+          <p style="color: #aaa; margin-top: 6px">
+            Connect with Nigerian Minecraft players. Voice chat, text, and build
+            your squad.
+          </p>
+          <div
+            style="display: flex; gap: 20px; margin-top: 30px; flex-wrap: wrap"
+          >
+            <div
+              style="
+                background: #162016;
+                padding: 20px;
+                border-radius: 16px;
+                border: 1px solid #2a4a2a;
+                flex: 1;
+                min-width: 150px;
+              "
+            >
+              <span style="color: #4caf50">🟢 Online</span><br /><strong
+                id="dashOnlineCount"
+                >0</strong
+              >
+            </div>
+            <div
+              style="
+                background: #162016;
+                padding: 20px;
+                border-radius: 16px;
+                border: 1px solid #2a4a2a;
+                flex: 1;
+                min-width: 150px;
+              "
+            >
+              <span style="color: #8bc34a">👥 Friends</span><br /><strong
+                id="dashFriendCount"
+                >0</strong
+              >
+            </div>
+            <div
+              style="
+                background: #162016;
+                padding: 20px;
+                border-radius: 16px;
+                border: 1px solid #2a4a2a;
+                flex: 1;
+                min-width: 150px;
+              "
+            >
+              <span style="color: #f57c00">📨 Requests</span><br /><strong
+                id="dashRequestCount"
+                >0</strong
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- ONLINE USERS -->
+        <div id="view-online" class="view">
+          <h3 style="color: #4caf50">🟢 Who's Online</h3>
+          <input
+            class="search-box"
+            id="onlineSearch"
+            placeholder="Search by username or IGN..."
+          />
+          <div class="user-list" id="onlineList"></div>
+        </div>
+
+        <!-- FRIENDS -->
+        <div id="view-friends" class="view">
+          <h3 style="color: #4caf50">👥 My Friends</h3>
+          <div class="user-list" id="friendsList"></div>
+          <hr style="border-color: #1a3a1a; margin: 20px 0" />
+          <h4 style="color: #8bc34a">📨 Pending Requests</h4>
+          <div class="user-list" id="pendingRequests"></div>
+        </div>
+
+        <!-- CHAT -->
+        <div id="view-chat" class="view">
+          <div class="chat-layout">
+            <div class="chat-friends" id="chatFriendsList">
+              <div style="color: #777; text-align: center; padding: 20px">
+                Select a friend to chat
+              </div>
+            </div>
+            <div class="chat-box">
+              <div class="chat-messages" id="chatMessages">
+                <div style="color: #777; text-align: center; padding: 40px">
+                  Start a conversation
+                </div>
+              </div>
+              <div class="chat-input-area">
+                <input
+                  id="chatInput"
+                  placeholder="Type a message..."
+                  disabled
+                />
+                <button id="chatSendBtn" disabled>Send</button>
+                <button class="voice-btn" id="voiceCallBtn" disabled>
+                  🎙️ Call
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROFILE -->
+        <div id="view-profile" class="view">
+          <div class="profile-card">
+            <h3 style="color: #4caf50">👤 Edit Profile</h3>
+            <div style="margin: 12px 0">
+              <label class="text-muted"
+                >Minecraft IGN: <span id="profileIGN" style="color: #fff"></span
+              ></label>
+            </div>
+            <textarea
+              id="profileBio"
+              placeholder="Write your bio... (max 300 chars)"
+            ></textarea>
+            <input
+              type="text"
+              id="profileState"
+              placeholder="Your Nigerian State"
+              style="
+                width: 100%;
+                padding: 10px;
+                margin: 8px 0;
+                background: #1f2f1f;
+                border: 1px solid #2a4a2a;
+                border-radius: 10px;
+                color: #fff;
+              "
+            />
+            <input
+              type="text"
+              id="profileServer"
+              placeholder="Favorite Minecraft Server"
+              style="
+                width: 100%;
+                padding: 10px;
+                margin: 8px 0;
+                background: #1f2f1f;
+                border: 1px solid #2a4a2a;
+                border-radius: 10px;
+                color: #fff;
+              "
+            />
+            <button id="saveProfileBtn">💾 Save Profile</button>
+            <div
+              id="profileStatus"
+              style="margin-top: 10px; color: #8bc34a"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== VOICE CALL OVERLAY ===== -->
+    <div class="call-overlay" id="callOverlay">
+      <div class="call-box">
+        <h3>📞 Voice Call</h3>
+        <div class="status" id="callStatus">Connecting...</div>
+        <div style="margin: 20px 0">
+          <button class="ctrl-btn mute" id="callMuteBtn">🔊</button>
+          <button class="ctrl-btn hangup" id="callHangupBtn">📴</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
